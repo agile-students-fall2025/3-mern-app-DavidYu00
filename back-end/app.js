@@ -81,13 +81,12 @@ app.post('/messages/save', async (req, res) => {
 //route for About Us page
 app.get('/about', async (req, res) => {
   const aboutContent = {
-      title: 'About',
-      paragraphs: [
+      title: "About",
+      body: [
         "dummy text",
         "looooooooooong dummy text.",
       ],
-      // Using a placeholder image service for a dynamic-looking but consistent photo
-      imageUrl: './images/about.jpg'
+      image: './images/about.jpg'
   }
   try {
     res.json({
