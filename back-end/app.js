@@ -4,8 +4,6 @@ const morgan = require('morgan') // middleware for nice logging of incoming HTTP
 const cors = require('cors') // middleware for enabling CORS (Cross-Origin Resource Sharing) requests.
 const mongoose = require('mongoose')
 
-const aboutContent = require('./data/aboutContent.json')
-
 const app = express() // instantiate an Express object
 app.use(morgan('dev', { skip: (req, res) => process.env.NODE_ENV === 'test' })) // log all incoming requests, except when in unit test mode.  morgan has a few logging default styles - dev is a nice concise color-coded style
 app.use(cors()) // allow cross-origin resource sharing
@@ -82,6 +80,15 @@ app.post('/messages/save', async (req, res) => {
 
 //route for About Us page
 app.get('/about', async (req, res) => {
+  const aboutContent = {
+      title: 'About',
+      paragraphs: [
+        "dummy text",
+        "looooooooooong dummy text.",
+      ],
+      // Using a placeholder image service for a dynamic-looking but consistent photo
+      imageUrl: './images/about.jpg'
+  }
   try {
     res.json({
       data: aboutContent,
@@ -91,7 +98,7 @@ app.get('/about', async (req, res) => {
     console.error(err)
     res.status(400).json({
       error: err,
-      status: 'failed to retrieve about us data',
+      status: 'failed to retrieve about data',
     })
   }
 })
